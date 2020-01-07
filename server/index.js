@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 // serve up static file
-app.use('/*', express.static('public'));
+// app.use('/*', express.static('public'));
 
 
 
@@ -16,44 +16,44 @@ app.listen(PORT, () => {
 });
 
 
-const reviews = {
-  target: 'http://localhost:3003',
+const related = {
+  target: 'http://13.57.184.81',
   changeOrigin: true,
-  onProxyRes: function (proxyRes) {
-    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  pathRewrite: {
+    '/api/related/': '/related/'
   }
 };
 
-const review = proxy(reviews);
-app.use('/', review);
+const relatedproxy = proxy(related);
+app.use('/api/related/:houseID', relatedproxy);
 
-const reservations = {
-    target: 'http://3.135.103.1',
-    changeOrigin: true,
-    onProxyRes: function (proxyRes) {
-        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-      }
-  };
-  const reservation = proxy(reservations);
-  app.use('/', reservation);
+// const reservations = {
+//     target: 'http://3.135.103.1',
+//     changeOrigin: true,
+//     onProxyRes: function (proxyRes) {
+//         proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+//       }
+//   };
+//   const reservation = proxy(reservations);
+//   app.use('/', reservation);
 
-  const suggestions = {
-    target: 'http://localhost:3001',
-    changeOrigin: true,
-    onProxyRes: function (proxyRes) {
-        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-      }
-  };
-  const suggestion = proxy(suggestions);
-  app.use('/', suggestion);
+//   const suggestions = {
+//     target: 'http://localhost:3001',
+//     changeOrigin: true,
+//     onProxyRes: function (proxyRes) {
+//         proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+//       }
+//   };
+//   const suggestion = proxy(suggestions);
+//   app.use('/', suggestion);
 
-  const photogalleries = {
-    target: 'http://localhost:3004',
-    changeOrigin: true,
-    onProxyRes: function (proxyRes) {
-        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-      }
-  };
-  const photogallery = proxy(photogalleries);
-  app.use('/', photogallery);
+//   const photogalleries = {
+//     target: 'http://localhost:3004',
+//     changeOrigin: true,
+//     onProxyRes: function (proxyRes) {
+//         proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+//       }
+//   };
+//   const photogallery = proxy(photogalleries);
+//   app.use('/', photogallery);
 
